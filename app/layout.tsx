@@ -1,35 +1,38 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import "./globals.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "127.0.0.1:3000";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.includes("127.0.0.1") || host.includes("localhost") ? "http" : "https");
-  const imageUrl = new URL("/og.png", `${protocol}://${host}`).toString();
+// Absolute URL of the deployed site, used for the social preview image.
+// Override with NEXT_PUBLIC_SITE_URL when hosting somewhere else.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://alexbaillie.github.io/mossy-hop";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
-  return {
-    title: "Mossy Hop",
-    description: "Guide one very bouncy, fluffy friend through ten increasingly wild and detailed worlds.",
-    openGraph: {
-      title: "Mossy Hop — Ten Worlds, One Fluffy Hero",
-      description: "Guide one very bouncy, fluffy friend through ten increasingly wild and detailed worlds.",
-      type: "website",
-      images: [{
-        url: imageUrl,
-        width: 1672,
-        height: 941,
-        alt: "Mossy, a fluffy green ball, jumping over a stump in a sunny woodland",
-      }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Mossy Hop — Ten Worlds, One Fluffy Hero",
-      description: "Guide one very bouncy, fluffy friend through ten increasingly wild and detailed worlds.",
-      images: [imageUrl],
-    },
-  };
-}
+const description = "Guide one very bouncy, fluffy friend through ten increasingly wild and detailed worlds.";
+const socialTitle = "Mossy Hop — Ten Worlds, One Fluffy Hero";
+const imageUrl = `${siteUrl}/og.png`;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: "Mossy Hop",
+  description,
+  icons: { icon: `${basePath}/mossy-character-v2.png` },
+  openGraph: {
+    title: socialTitle,
+    description,
+    type: "website",
+    images: [{
+      url: imageUrl,
+      width: 1672,
+      height: 941,
+      alt: "Mossy, a fluffy green ball, jumping over a stump in a sunny woodland",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: socialTitle,
+    description,
+    images: [imageUrl],
+  },
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
