@@ -47,3 +47,8 @@ npm run deploy:cloudflare
 
 That builds the game and publishes it. The script sets `NEXT_PUBLIC_SITE_URL` so the
 social preview image points at the Cloudflare address.
+
+Every push to `main` also deploys to Cloudflare automatically through
+`.github/workflows/cloudflare.yml`. It needs two repository secrets,
+`CLOUDFLARE_API_TOKEN` (an API token with the "Edit Cloudflare Workers" permission)
+and `CLOUDFLARE_ACCOUNT_ID`; until they are set the workflow skips with a warning.
