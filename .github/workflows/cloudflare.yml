@@ -29,6 +29,16 @@ jobs:
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
+      # Secrets pasted into GitHub often carry a stray newline or space; strip it, then ask
+      # Cloudflare whether the token is valid (prints only its length and the verdict).
+      - name: Verify Cloudflare token
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          token=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '[:space:]')
+          echo "::add-mask::$token"
+          echo "token length: ${#CLOUDFLARE_API_TOKEN} (${#token} after trimming whitespace)"
+          curl -s -H "Authorization: Bearer $token" https://api.cloudflare.com/client/v4/user/tokens/verify             | python3 -c "import sys,json; d=json.load(sys.stdin); print('verify:', d.get('success'), [e.get('message') for e in d.get('errors', [])], (d.get('result') or {}).get('status'))"
+          echo "CLOUDFLARE_API_TOKEN=$token" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         if: steps.creds.outputs.ready == 'true'
       - uses: actions/setup-node@v4
