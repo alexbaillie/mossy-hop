@@ -95,20 +95,19 @@ type LevelConfig = {
   pool: ObstacleKind[];
   accent: string;
   tint: string;
-  finishLabel: string;
 };
 
 const LEVELS: Record<LevelNumber, LevelConfig> = {
-  1: { name: "Mossy Meadow", theme: "meadow", background: asset("/game-terrain.png"), goalX: 5700, length: 6050, obstacleCount: 12, pool: ["stump", "stone", "mushroom", "bear", "tractor", "piano", "volcano"], accent: "#6aa944", tint: "#fffdf4", finishLabel: "FINISH" },
-  2: { name: "Frostlight Pass", theme: "frost", background: asset("/game-terrain-frost.png"), goalX: 6300, length: 6650, obstacleCount: 14, pool: ["snowman", "sled", "crystal", "mammoth"], accent: "#4daed4", tint: "#eefaff", finishLabel: "SUMMIT" },
-  3: { name: "Sunstone Desert", theme: "desert", background: asset("/game-terrain-3-sunstone.png"), goalX: 7000, length: 7350, obstacleCount: 16, pool: ["cactus", "stone", "stump", "tractor", "volcano"], accent: "#d77b35", tint: "#fff4df", finishLabel: "OASIS" },
-  4: { name: "Coral Coast", theme: "coast", background: asset("/game-terrain-4-coral.png"), goalX: 7800, length: 8150, obstacleCount: 18, pool: ["coral", "mushroom", "crystal", "mammoth", "piano"], accent: "#28aeb2", tint: "#e9fbfa", finishLabel: "HARBOR" },
-  5: { name: "Clockwork City", theme: "clockwork", background: asset("/game-terrain-5-clockwork.png"), goalX: 8700, length: 9050, obstacleCount: 20, pool: ["robot", "tractor", "piano", "crystal", "sled", "stone"], accent: "#b4772d", tint: "#fbf1dd", finishLabel: "STATION" },
-  6: { name: "Sugarcloud Heights", theme: "candy", background: asset("/game-terrain-6-sugarcloud.png"), goalX: 9700, length: 10050, obstacleCount: 22, pool: ["cupcake", "mushroom", "snowman", "bear", "coral"], accent: "#dd72aa", tint: "#fff0f8", finishLabel: "CASTLE" },
-  7: { name: "Moonlit Marsh", theme: "marsh", background: asset("/game-terrain-7-marsh.png"), goalX: 10800, length: 11150, obstacleCount: 24, pool: ["ghost", "stump", "mushroom", "treasure", "bear", "crystal"], accent: "#4c9c7c", tint: "#e9f7f0", finishLabel: "LANTERN" },
-  8: { name: "Crystal Caverns", theme: "crystal", background: asset("/game-terrain-8-crystal.png"), goalX: 12000, length: 12350, obstacleCount: 26, pool: ["treasure", "crystal", "stone", "volcano", "alienPlant"], accent: "#8d62d8", tint: "#f3edff", finishLabel: "VAULT" },
-  9: { name: "Sky Temple", theme: "sky", background: asset("/game-terrain-9-sky.png"), goalX: 13300, length: 13650, obstacleCount: 28, pool: ["cloudPillar", "robot", "crystal", "mammoth", "piano", "sled"], accent: "#6a88d8", tint: "#eff4ff", finishLabel: "TEMPLE" },
-  10: { name: "Cosmic Garden", theme: "cosmic", background: asset("/game-terrain-10-cosmic.png"), goalX: 14700, length: 15050, obstacleCount: 30, pool: ["alienPlant", "ghost", "robot", "cloudPillar", "treasure", "volcano", "cupcake", "cactus"], accent: "#8764ef", tint: "#f0edff", finishLabel: "LEGEND" },
+  1: { name: "Mossy Meadow", theme: "meadow", background: asset("/game-terrain.png"), goalX: 5700, length: 6050, obstacleCount: 12, pool: ["stump", "stone", "mushroom", "bear", "tractor", "piano", "volcano"], accent: "#6aa944", tint: "#fffdf4" },
+  2: { name: "Frostlight Pass", theme: "frost", background: asset("/game-terrain-frost.png"), goalX: 6300, length: 6650, obstacleCount: 14, pool: ["snowman", "sled", "crystal", "mammoth"], accent: "#4daed4", tint: "#eefaff" },
+  3: { name: "Sunstone Desert", theme: "desert", background: asset("/game-terrain-3-sunstone.png"), goalX: 7000, length: 7350, obstacleCount: 16, pool: ["cactus", "stone", "stump", "tractor", "volcano"], accent: "#d77b35", tint: "#fff4df" },
+  4: { name: "Coral Coast", theme: "coast", background: asset("/game-terrain-4-coral.png"), goalX: 7800, length: 8150, obstacleCount: 18, pool: ["coral", "mushroom", "crystal", "mammoth", "piano"], accent: "#28aeb2", tint: "#e9fbfa" },
+  5: { name: "Clockwork City", theme: "clockwork", background: asset("/game-terrain-5-clockwork.png"), goalX: 8700, length: 9050, obstacleCount: 20, pool: ["robot", "tractor", "piano", "crystal", "sled", "stone"], accent: "#b4772d", tint: "#fbf1dd" },
+  6: { name: "Sugarcloud Heights", theme: "candy", background: asset("/game-terrain-6-sugarcloud.png"), goalX: 9700, length: 10050, obstacleCount: 22, pool: ["cupcake", "mushroom", "snowman", "bear", "coral"], accent: "#dd72aa", tint: "#fff0f8" },
+  7: { name: "Moonlit Marsh", theme: "marsh", background: asset("/game-terrain-7-marsh.png"), goalX: 10800, length: 11150, obstacleCount: 24, pool: ["ghost", "stump", "mushroom", "treasure", "bear", "crystal"], accent: "#4c9c7c", tint: "#e9f7f0" },
+  8: { name: "Crystal Caverns", theme: "crystal", background: asset("/game-terrain-8-crystal.png"), goalX: 12000, length: 12350, obstacleCount: 26, pool: ["treasure", "crystal", "stone", "volcano", "alienPlant"], accent: "#8d62d8", tint: "#f3edff" },
+  9: { name: "Sky Temple", theme: "sky", background: asset("/game-terrain-9-sky.png"), goalX: 13300, length: 13650, obstacleCount: 28, pool: ["cloudPillar", "robot", "crystal", "mammoth", "piano", "sled"], accent: "#6a88d8", tint: "#eff4ff" },
+  10: { name: "Cosmic Garden", theme: "cosmic", background: asset("/game-terrain-10-cosmic.png"), goalX: 14700, length: 15050, obstacleCount: 30, pool: ["alienPlant", "ghost", "robot", "cloudPillar", "treasure", "volcano", "cupcake", "cactus"], accent: "#8764ef", tint: "#f0edff" },
 };
 
 const OBSTACLE_SIZE: Record<ObstacleKind, { width: number; height: number }> = {
@@ -117,6 +116,77 @@ const OBSTACLE_SIZE: Record<ObstacleKind, { width: number; height: number }> = {
   snowman: { width: 62, height: 98 }, sled: { width: 108, height: 50 }, crystal: { width: 78, height: 105 }, mammoth: { width: 78, height: 94 },
   cactus: { width: 72, height: 112 }, coral: { width: 76, height: 105 }, robot: { width: 70, height: 94 }, cupcake: { width: 76, height: 88 },
   ghost: { width: 68, height: 92 }, treasure: { width: 88, height: 64 }, cloudPillar: { width: 66, height: 112 }, alienPlant: { width: 78, height: 108 },
+};
+
+// Mossy and the obstacles are drawn this much larger than their base sizes.
+const SIZE_BOOST = 1.3;
+
+// Movement and jump tuning. The jump (apex ~205px, ~0.84s in the air) is sized for the
+// larger obstacles so every obstacle can be cleared with a single jump, before the
+// double jump unlocks and with Feather Fall's slow descent alike.
+const RUN_SPEED = 285 * 1.1;
+const JUMP_SPEED = 976;
+const GRAVITY = 2324;
+const HIT_BOUNCE = 654;
+const FEATHER_BOOST = 750;
+
+// What each obstacle's sprite looks like, measured from the sprite sheets, as fractions of
+// the obstacle's height: `float` is the empty space under the art (the art is drawn that
+// much lower so it rests on the ground) and `visible` is the height of the art itself.
+// The hitbox is exactly the visible art, so what you see is what you have to jump.
+const SPRITE_ART: Record<ObstacleKind, { float: number; visible: number }> = {
+  stump: { float: 0.008, visible: 1.099 }, stone: { float: 0.009, visible: 0.935 },
+  mushroom: { float: 0.006, visible: 1.098 }, bear: { float: 0.009, visible: 1.077 },
+  tractor: { float: 0.009, visible: 1.046 }, piano: { float: 0.009, visible: 1.083 },
+  volcano: { float: 0.006, visible: 1.028 }, snowman: { float: 0.119, visible: 0.856 },
+  sled: { float: 0.146, visible: 0.365 }, crystal: { float: 0.119, visible: 0.887 },
+  mammoth: { float: 0.124, visible: 0.876 }, cactus: { float: 0.052, visible: 1.033 },
+  coral: { float: 0.051, visible: 0.968 }, robot: { float: 0.057, visible: 0.954 },
+  cupcake: { float: 0.047, visible: 0.858 }, ghost: { float: 0.106, visible: 0.747 },
+  treasure: { float: 0.074, visible: 0.595 }, cloudPillar: { float: 0.074, visible: 0.991 },
+  alienPlant: { float: 0.097, visible: 0.969 },
+};
+
+// How far the base of the art is planted below the ground line (pixels).
+const OBSTACLE_PLANT: Partial<Record<ObstacleKind, number>> = {
+  tractor: 11, piano: 20, volcano: 4, crystal: 18, mammoth: 1, cactus: 6, coral: 4, robot: 2,
+  cloudPillar: 4, alienPlant: 18,
+};
+
+// Pixels trimmed from an obstacle's width (hitbox and drawing).
+const OBSTACLE_NARROW: Partial<Record<ObstacleKind, number>> = { piano: 2 };
+
+// Tall obstacles are drawn a little smaller (width and height together) so that, with the
+// hitbox matching the art, every obstacle can still be cleared with a single jump.
+const OBSTACLE_SCALE: Partial<Record<ObstacleKind, number>> = {
+  tractor: 0.98, piano: 0.96, volcano: 0.98, crystal: 0.99, cactus: 0.87, coral: 0.92,
+  cloudPillar: 0.91, alienPlant: 0.93,
+};
+
+const hitboxHeight = (obstacle: Obstacle) =>
+  SPRITE_ART[obstacle.kind].visible * obstacle.height - (OBSTACLE_PLANT[obstacle.kind] ?? 0);
+
+const mossyRadius = (width: number) => clamp(width * 0.046, 30, 48) * SIZE_BOOST;
+
+// Desktop zoom: the world is drawn at most this large (0.85 = 15% smaller than 1:1).
+// On short stages it zooms out only as far as needed to keep a full jump (apex ~205px
+// plus Mossy's height) on screen, so Mossy and the obstacles stay big on wide, short
+// windows too.
+const ZOOM_MAX = 0.85;
+const MIN_WORLD_HEIGHT = 430;
+
+// On desktop the whole page (header, game and controls) keeps a fixed layout and is scaled
+// to fit the window, so it looks the same at any window size or browser zoom.
+// Phones use the normal responsive layout at 1:1.
+const FIT_MARGIN = 24;
+const isDesktopLayout = () => window.matchMedia("(min-width: 761px)").matches;
+const getFit = (page: HTMLElement | null) => {
+  if (!page || !isDesktopLayout()) return 1;
+  const fit = Math.min(
+    (window.innerWidth - FIT_MARGIN) / page.offsetWidth,
+    (window.innerHeight - FIT_MARGIN) / page.offsetHeight,
+  );
+  return Number.isFinite(fit) ? clamp(fit, 0.3, 3) : 1;
 };
 
 const buildLevel = (level: LevelNumber): Obstacle[] => {
@@ -131,8 +201,8 @@ const buildLevel = (level: LevelNumber): Obstacle[] => {
     const jitter = index === 0 || index === config.obstacleCount - 1 ? 0 : Math.sin((index + 1) * (level + 2.3)) * Math.min(54, spacing * 0.15);
     return {
       x: Math.round(startX + index * spacing + jitter),
-      width: Math.round(base.width * scale),
-      height: Math.round(base.height * scale),
+      width: Math.round(base.width * scale * SIZE_BOOST * (OBSTACLE_SCALE[kind] ?? 1)) - (OBSTACLE_NARROW[kind] ?? 0),
+      height: Math.round(base.height * scale * SIZE_BOOST * (OBSTACLE_SCALE[kind] ?? 1)),
       kind,
       passed: false,
     };
@@ -246,6 +316,7 @@ function drawObstacle(
   const { x, width, height, kind } = obstacle;
   const y = groundY - height;
   ctx.save();
+  ctx.translate(0, SPRITE_ART[kind].float * height + (OBSTACLE_PLANT[kind] ?? 0));
   ctx.shadowColor = "rgba(26, 48, 28, .38)";
   ctx.shadowBlur = 12;
   ctx.shadowOffsetY = 5;
@@ -535,6 +606,7 @@ function drawMossy(
 
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fitRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<AudioContext | null>(null);
   const soundRef = useRef(true);
   const mossyColorRef = useRef<MossyColor>("green");
@@ -622,7 +694,7 @@ export default function Home() {
   const startLevel = useCallback((nextLevel: LevelNumber) => {
     const game = gameRef.current;
     const groundY = game.height * 0.78;
-    const radius = clamp(game.width * 0.046, 30, 48);
+    const radius = mossyRadius(game.width);
     const startsWithAbilities = nextLevel >= 2;
     const startingClears = startsWithAbilities ? 10 : 0;
     movementRef.current = { left: false, right: false };
@@ -667,7 +739,7 @@ export default function Home() {
       return;
     }
     if (game.ball.grounded) {
-      game.ball.vy = -760;
+      game.ball.vy = -JUMP_SPEED;
       game.ball.grounded = false;
       game.jumpsUsed = 1;
       burst(game.worldX - game.cameraX, game.ball.y + 24, 7);
@@ -677,15 +749,17 @@ export default function Home() {
     const maxJumps = game.slowFallUnlocked ? 4 : 2;
     if (!game.doubleJumpUnlocked || game.jumpsUsed >= maxJumps) return;
 
-    const gravity = 2050;
-    const jumpSpeed = 760;
+    const gravity = GRAVITY;
+    const jumpSpeed = JUMP_SPEED;
     const groundY = game.height * 0.78;
-    const radius = clamp(game.width * 0.046, 30, 48);
+    const radius = mossyRadius(game.width);
     const floor = groundY - radius;
     const currentHeight = Math.max(0, floor - game.ball.y);
     const normalHeight = (jumpSpeed * jumpSpeed) / (2 * gravity);
     if (game.jumpsUsed === 1) {
-      const remainingHeight = Math.max(normalHeight * 0.28, normalHeight * 2 - currentHeight);
+      // Capped by the space above Mossy so the second jump cannot leave the canvas.
+      const spaceAbove = Math.max(0, game.ball.y - radius * 1.2);
+      const remainingHeight = Math.max(normalHeight * 0.28, Math.min(normalHeight * 2 - currentHeight, spaceAbove));
       game.ball.vy = -Math.sqrt(2 * gravity * remainingHeight);
       game.jumpsUsed = 2;
       burst(game.worldX - game.cameraX, game.ball.y + radius * 0.55, 12);
@@ -697,7 +771,7 @@ export default function Home() {
     // the remaining canvas space so repeated taps cannot launch Mossy off-screen.
     const ceiling = radius * 1.2;
     const availableRise = Math.max(2, game.ball.y - ceiling);
-    const boostSpeed = Math.min(620, Math.sqrt(2 * gravity * availableRise));
+    const boostSpeed = Math.min(FEATHER_BOOST, Math.sqrt(2 * gravity * availableRise));
     game.ball.vy = Math.min(game.ball.vy, -boostSpeed);
     game.jumpsUsed += 1;
     burst(game.worldX - game.cameraX, game.ball.y + radius * 0.55, 10);
@@ -776,20 +850,27 @@ export default function Home() {
     worldObstacleAtlasB.src = asset("/obstacles-worlds-b.png");
 
     const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      gameRef.current.width = rect.width;
-      gameRef.current.height = rect.height;
+      // Layout size is unaffected by the page-fit scale; the canvas is drawn at the
+      // scaled size so it stays sharp.
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      const fit = getFit(canvas.closest<HTMLElement>(".game-page"));
+      const pixelScale = Math.min((window.devicePixelRatio || 1) * fit, 3);
+      canvas.width = Math.max(1, Math.floor(width * pixelScale));
+      canvas.height = Math.max(1, Math.floor(height * pixelScale));
+      // The game runs in its own units and is drawn scaled by `zoom`. Phones keep 1:1.
+      const zoom = isDesktopLayout() ? clamp(height / MIN_WORLD_HEIGHT, 0.5, ZOOM_MAX) : 1;
+      gameRef.current.width = width / zoom;
+      gameRef.current.height = height / zoom;
       if (gameRef.current.mode === "ready") {
         gameRef.current.worldX = LEVEL_START_X;
         gameRef.current.cameraX = 0;
       }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.setTransform(pixelScale * zoom, 0, 0, pixelScale * zoom, 0, 0);
     };
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
+    window.addEventListener("resize", resize);
     resize();
 
     const render = (now: number) => {
@@ -799,7 +880,7 @@ export default function Home() {
       game.time += dt;
       const { width, height } = game;
       const groundY = height * 0.78;
-      const radius = clamp(width * 0.046, 30, 48);
+      const radius = mossyRadius(width);
       let ballX = game.worldX - game.cameraX;
       const levelConfig = LEVELS[game.level];
       const isFrost = (["frost", "coast", "marsh", "crystal", "sky", "cosmic"] as LevelTheme[]).includes(levelConfig.theme);
@@ -808,7 +889,7 @@ export default function Home() {
 
       if (game.mode === "playing") {
         const direction = Number(movementRef.current.right) - Number(movementRef.current.left);
-        const targetVx = direction * 285;
+        const targetVx = direction * RUN_SPEED;
         const acceleration = game.ball.grounded ? 1450 : 880;
         const velocityStep = acceleration * dt;
         game.ball.vx += clamp(targetVx - game.ball.vx, -velocityStep, velocityStep);
@@ -833,7 +914,7 @@ export default function Home() {
         // Once Feather Fall is unlocked, downward physics advances at half
         // time so the complete descent is exactly half speed. Rising is unchanged.
         const verticalTimeScale = game.slowFallUnlocked && game.ball.vy > 0 ? 0.5 : 1;
-        game.ball.vy += 2050 * dt * verticalTimeScale;
+        game.ball.vy += GRAVITY * dt * verticalTimeScale;
         game.ball.y += game.ball.vy * dt * verticalTimeScale;
         const floor = groundY - radius;
         if (game.ball.y >= floor) {
@@ -880,7 +961,7 @@ export default function Home() {
           return (
             right > obstacle.x + inset &&
             left < obstacle.x + obstacle.width - inset &&
-            bottom > groundY - obstacle.height + 5 &&
+            bottom > groundY - hitboxHeight(obstacle) + 5 &&
             top < groundY
           );
         }) : undefined;
@@ -895,7 +976,7 @@ export default function Home() {
               ? hitObstacle.x - radius * 0.82
               : hitObstacle.x + hitObstacle.width + radius * 0.82;
             game.ball.vx = hitFromLeft ? -150 : 150;
-            game.ball.vy = -540;
+            game.ball.vy = -HIT_BOUNCE;
             game.ball.grounded = false;
             game.jumpsUsed = 1;
             playTone(220, 0.2, 0.065);
@@ -1092,17 +1173,32 @@ export default function Home() {
         ctx.fill();
         roundedRect(ctx, goalX + 40, groundY - 126, 12, 128, 5);
         ctx.fill();
+        // The banner shows the level's name, split over two lines when it has several words.
+        const nameWords = levelConfig.name.split(" ");
+        const nameLines = nameWords.length > 1
+          ? [nameWords.slice(0, Math.ceil(nameWords.length / 2)).join(" "), nameWords.slice(Math.ceil(nameWords.length / 2)).join(" ")]
+          : nameWords;
+        const bannerHeight = 12 + nameLines.length * 17;
         ctx.fillStyle = levelConfig.tint;
-        roundedRect(ctx, goalX - 63, groundY - 139, 126, 36, 11);
+        roundedRect(ctx, goalX - 63, groundY - 103 - bannerHeight, 126, bannerHeight, 11);
         ctx.fill();
         ctx.strokeStyle = isFrost ? "#163f79" : palette.ink;
         ctx.lineWidth = 2;
         ctx.stroke();
         ctx.fillStyle = isFrost ? "#163f79" : palette.ink;
-        ctx.font = `900 ${Math.max(12, width * 0.014)}px Arial Rounded MT Bold, sans-serif`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(levelConfig.finishLabel, goalX, groundY - 121);
+        let nameFontSize = Math.min(15, Math.max(12, width * 0.014));
+        const setNameFont = () => { ctx.font = `900 ${nameFontSize}px Arial Rounded MT Bold, sans-serif`; };
+        setNameFont();
+        const widestLine = Math.max(...nameLines.map((line) => ctx.measureText(line).width));
+        if (widestLine > 108) {
+          nameFontSize = Math.max(8, nameFontSize * 108 / widestLine);
+          setNameFont();
+        }
+        nameLines.forEach((line, index) => {
+          ctx.fillText(line, goalX, groundY - 103 - bannerHeight / 2 + (index - (nameLines.length - 1) / 2) * 16);
+        });
         ctx.fillStyle = levelConfig.accent;
         ctx.beginPath();
         ctx.moveTo(goalX + 51, groundY - 125);
@@ -1277,8 +1373,25 @@ export default function Home() {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      window.removeEventListener("resize", resize);
     };
   }, [burst, playTone]);
+
+  // Scale the whole page to fit the window (see getFit). The page stays hidden until
+  // the first measurement so it never flashes at the wrong size.
+  useEffect(() => {
+    const root = fitRef.current;
+    const page = root?.querySelector<HTMLElement>(".game-page") ?? null;
+    if (!root || !page) return;
+    const apply = () => {
+      root.style.setProperty("--fit", String(getFit(page)));
+      root.dataset.ready = "true";
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    document.fonts?.ready.then(apply);
+    return () => window.removeEventListener("resize", apply);
+  }, []);
 
   const toggleSound = () => {
     setSoundOn((current) => {
@@ -1306,6 +1419,7 @@ export default function Home() {
   } as CSSProperties;
 
   return (
+    <div className="fit-stage" ref={fitRef}>
     <main className="game-page">
       <header className="site-header" aria-label="Mossy Hop">
         <div className="brand-lockup">
@@ -1494,5 +1608,6 @@ export default function Home() {
               : "Move with A/D or ←/→. Jump with Space, W, ↑, or a tap."}
       </p>
     </main>
+    </div>
   );
 }

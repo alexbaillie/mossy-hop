@@ -324,11 +324,13 @@ button {
 
 .game-viewport {
   position: relative;
+  width: 100%;
   aspect-ratio: 16 / 8.55;
   min-height: 360px;
   overflow: hidden;
   background: #cceadf;
   isolation: isolate;
+  container-type: size;
 }
 
 .lives-hud {
@@ -483,7 +485,7 @@ button {
   max-width: 390px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2rem, 4.5vw, 4.2rem);
+  font-size: clamp(1.3rem, min(5.7cqw, 10.7cqh), 4.2rem);
   font-weight: 900;
   line-height: 0.93;
   letter-spacing: -0.07em;
@@ -494,7 +496,7 @@ button {
   max-width: 370px;
   margin: 17px 0 21px;
   color: #315742;
-  font-size: clamp(0.83rem, 1.3vw, 1rem);
+  font-size: clamp(0.7rem, min(1.36cqw, 2.55cqh), 1rem);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -663,13 +665,16 @@ kbd {
   font-weight: 900;
 }
 
+/* Status text under the game: hidden visually, still announced to screen readers. */
 .page-note {
-  margin: 0;
-  color: #6c806f;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-align: center;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (max-width: 760px) {
@@ -869,20 +874,88 @@ kbd {
   }
 }
 
-@media (max-height: 720px) and (min-width: 761px) {
+/* Desktop: slimmer top and bottom bars, and the stage takes whatever height is left
+   so the whole game (header, stage, controls) stays inside the window. */
+@media (min-width: 761px) {
+  /* The page has a fixed design size and is scaled to fit the window (see getFit). */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .fit-stage {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .fit-stage:not([data-ready]) .game-page {
+    visibility: hidden;
+  }
+
   .game-page {
-    padding-top: 14px;
-    gap: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1180px;
+    min-height: 0;
+    margin: 0;
+    padding: 10px 0;
+    align-content: start;
+    gap: 12px;
+    transform: translate(-50%, -50%) scale(var(--fit, 1));
+    transform-origin: center;
   }
 
-  .game-viewport {
-    min-height: 320px;
-    max-height: 58vh;
+  .brand-lockup {
+    font-size: 1.34rem;
   }
 
-  .score-bar,
+  .score-bar {
+    min-height: 56px;
+    padding: 7px 14px 7px 22px;
+  }
+
+  .score-group strong {
+    font-size: 1.5rem;
+  }
+
+  .level-chip {
+    padding: 4px 10px;
+  }
+
+  .color-picker,
+  .sound-button {
+    min-height: 34px;
+  }
+
+  .color-choice {
+    min-height: 26px;
+  }
+
+  .color-swatch {
+    width: 17px;
+    height: 17px;
+  }
+
+  .sound-icon {
+    width: 21px;
+    height: 21px;
+  }
+
   .control-strip {
-    min-height: 62px;
+    min-height: 54px;
+    padding: 8px 16px 8px 22px;
+  }
+
+  .move-controls button {
+    height: 32px;
+    min-width: 36px;
+  }
+
+  .move-controls .jump-control {
+    min-width: 80px;
   }
 }
 
