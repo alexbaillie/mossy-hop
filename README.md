@@ -38,6 +38,12 @@ push to `main`. It builds a static export with `GITHUB_PAGES=true`, which sets t
 GITHUB_PAGES=true npm run build   # output in dist/client/
 ```
 
-**Cloudflare Workers** is the other target (`worker/index.ts`, `npm run build`).
-It needs no base path. Set `NEXT_PUBLIC_SITE_URL` to the site's address so the
-social preview image resolves.
+**Cloudflare Workers** hosts it at https://mossy-hop.alexbaillie.workers.dev
+(`worker/index.ts`, `wrangler.jsonc`). Log in once with `npx wrangler login`, then:
+
+```bash
+npm run deploy:cloudflare
+```
+
+That builds the game and publishes it. The script sets `NEXT_PUBLIC_SITE_URL` so the
+social preview image points at the Cloudflare address.
