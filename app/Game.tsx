@@ -98,14 +98,14 @@ type LevelConfig = {
 };
 
 const LEVELS: Record<LevelNumber, LevelConfig> = {
-  1: { name: "Mossy Meadow", theme: "meadow", background: asset("/game-terrain.png"), goalX: 5700, length: 6050, obstacleCount: 12, pool: ["stump", "stone", "mushroom", "bear", "tractor", "piano", "volcano"], accent: "#6aa944", tint: "#fffdf4" },
-  2: { name: "Frostlight Pass", theme: "frost", background: asset("/game-terrain-frost.png"), goalX: 6300, length: 6650, obstacleCount: 14, pool: ["snowman", "sled", "crystal", "mammoth"], accent: "#4daed4", tint: "#eefaff" },
-  3: { name: "Sunstone Desert", theme: "desert", background: asset("/game-terrain-3-sunstone.png"), goalX: 7000, length: 7350, obstacleCount: 16, pool: ["cactus", "stone", "stump", "tractor", "volcano"], accent: "#d77b35", tint: "#fff4df" },
-  4: { name: "Coral Coast", theme: "coast", background: asset("/game-terrain-4-coral.png"), goalX: 7800, length: 8150, obstacleCount: 18, pool: ["coral", "mushroom", "crystal", "mammoth", "piano"], accent: "#28aeb2", tint: "#e9fbfa" },
-  5: { name: "Clockwork City", theme: "clockwork", background: asset("/game-terrain-5-clockwork.png"), goalX: 8700, length: 9050, obstacleCount: 20, pool: ["robot", "tractor", "piano", "crystal", "sled", "stone"], accent: "#b4772d", tint: "#fbf1dd" },
-  6: { name: "Sugarcloud Heights", theme: "candy", background: asset("/game-terrain-6-sugarcloud.png"), goalX: 9700, length: 10050, obstacleCount: 22, pool: ["cupcake", "mushroom", "snowman", "bear", "coral"], accent: "#dd72aa", tint: "#fff0f8" },
-  7: { name: "Moonlit Marsh", theme: "marsh", background: asset("/game-terrain-7-marsh.png"), goalX: 10800, length: 11150, obstacleCount: 24, pool: ["ghost", "stump", "mushroom", "treasure", "bear", "crystal"], accent: "#4c9c7c", tint: "#e9f7f0" },
-  8: { name: "Crystal Caverns", theme: "crystal", background: asset("/game-terrain-8-crystal.png"), goalX: 12000, length: 12350, obstacleCount: 26, pool: ["treasure", "crystal", "stone", "volcano", "alienPlant"], accent: "#8d62d8", tint: "#f3edff" },
+  1: { name: "Mossy Meadow", theme: "meadow", background: asset("/game-terrain.png"), goalX: 5773, length: 6123, obstacleCount: 12, pool: ["stump", "stone", "mushroom", "bear", "tractor", "piano", "volcano"], accent: "#6aa944", tint: "#fffdf4" },
+  2: { name: "Frostlight Pass", theme: "frost", background: asset("/game-terrain-frost.png"), goalX: 6573, length: 6923, obstacleCount: 14, pool: ["snowman", "sled", "crystal", "mammoth"], accent: "#4daed4", tint: "#eefaff" },
+  3: { name: "Sunstone Desert", theme: "desert", background: asset("/game-terrain-3-sunstone.png"), goalX: 7410, length: 7760, obstacleCount: 16, pool: ["cactus", "stone", "stump", "tractor", "volcano"], accent: "#d77b35", tint: "#fff4df" },
+  4: { name: "Coral Coast", theme: "coast", background: asset("/game-terrain-4-coral.png"), goalX: 8271, length: 8621, obstacleCount: 18, pool: ["coral", "mushroom", "crystal", "mammoth", "piano"], accent: "#28aeb2", tint: "#e9fbfa" },
+  5: { name: "Clockwork City", theme: "clockwork", background: asset("/game-terrain-5-clockwork.png"), goalX: 9127, length: 9477, obstacleCount: 20, pool: ["robot", "tractor", "piano", "crystal", "sled", "stone"], accent: "#b4772d", tint: "#fbf1dd" },
+  6: { name: "Sugarcloud Heights", theme: "candy", background: asset("/game-terrain-6-sugarcloud.png"), goalX: 9974, length: 10324, obstacleCount: 22, pool: ["cupcake", "mushroom", "snowman", "bear", "coral"], accent: "#dd72aa", tint: "#fff0f8" },
+  7: { name: "Moonlit Marsh", theme: "marsh", background: asset("/game-terrain-7-marsh.png"), goalX: 10870, length: 11220, obstacleCount: 24, pool: ["ghost", "stump", "mushroom", "treasure", "bear", "crystal"], accent: "#4c9c7c", tint: "#e9f7f0" },
+  8: { name: "Crystal Caverns", theme: "crystal", background: asset("/game-terrain-8-crystal.png"), goalX: 12020, length: 12370, obstacleCount: 26, pool: ["treasure", "crystal", "stone", "volcano", "alienPlant"], accent: "#8d62d8", tint: "#f3edff" },
   9: { name: "Sky Temple", theme: "sky", background: asset("/game-terrain-9-sky.png"), goalX: 13300, length: 13650, obstacleCount: 28, pool: ["cloudPillar", "robot", "crystal", "mammoth", "piano", "sled"], accent: "#6a88d8", tint: "#eff4ff" },
   10: { name: "Cosmic Garden", theme: "cosmic", background: asset("/game-terrain-10-cosmic.png"), goalX: 14700, length: 15050, obstacleCount: 30, pool: ["alienPlant", "ghost", "robot", "cloudPillar", "treasure", "volcano", "cupcake", "cactus"], accent: "#8764ef", tint: "#f0edff" },
 };
@@ -166,6 +166,27 @@ const OBSTACLE_SCALE: Partial<Record<ObstacleKind, number>> = {
 const hitboxHeight = (obstacle: Obstacle) =>
   SPRITE_ART[obstacle.kind].visible * obstacle.height - (OBSTACLE_PLANT[obstacle.kind] ?? 0);
 
+// Advances vertical motion by `dt` seconds. The result is exact for constant gravity, so a jump
+// is the same height and length at any frame rate (stepping frame by frame made jumps lower on
+// slower frames). With Feather Fall, time runs at half speed once Mossy starts falling, which
+// makes the fall's acceleration a quarter of normal.
+const stepVertical = (vy: number, dt: number, slowFall: boolean) => {
+  let dy = 0;
+  let remaining = dt;
+  if (vy < 0) {
+    const t = Math.min(remaining, -vy / GRAVITY);
+    dy += vy * t + 0.5 * GRAVITY * t * t;
+    vy += GRAVITY * t;
+    remaining -= t;
+  }
+  if (remaining > 0) {
+    const scale = slowFall ? 0.5 : 1;
+    dy += vy * scale * remaining + 0.5 * GRAVITY * scale * scale * remaining * remaining;
+    vy += GRAVITY * scale * remaining;
+  }
+  return { dy, vy };
+};
+
 const mossyRadius = (width: number) => clamp(width * 0.046, 30, 48) * SIZE_BOOST;
 
 // Desktop zoom: the world is drawn at most this large (0.85 = 15% smaller than 1:1).
@@ -189,23 +210,45 @@ const getFit = (page: HTMLElement | null) => {
   return Number.isFinite(fit) ? clamp(fit, 0.3, 3) : 1;
 };
 
+// Obstacle spacing. One jump with Feather Fall (0.5x fall speed) covers
+// RUN_SPEED * 3 * JUMP_SPEED / GRAVITY pixels (rise + half-speed fall). To always have time to
+// land and jump the next obstacle, even when every jump is taken as late as is safe, each
+// obstacle sits at least one such jump, plus its own closest safe take-off distance (this
+// table: [smallest, largest] across its size variants, in pixels before the obstacle), after
+// the previous one. Level end positions (goalX) include the extra length this adds. Re-check
+// both if the jump, gravity, speed or obstacle sizes change.
+const FEATHER_JUMP_DISTANCE = (RUN_SPEED * 3 * JUMP_SPEED) / GRAVITY;
+const SPACING_PAD = 6;
+const NEAREST_TAKEOFF: Record<ObstacleKind, [number, number]> = {
+  stone: [45, 48], bear: [59, 64], piano: [58, 64], crystal: [56, 61], snowman: [60, 64], sled: [0, 0],
+  mammoth: [56, 60], tractor: [46, 49], cactus: [65, 70], stump: [60, 65], volcano: [54, 58],
+  mushroom: [54, 58], coral: [60, 66], robot: [61, 66], cupcake: [54, 58], treasure: [35, 36],
+  ghost: [52, 56], alienPlant: [58, 64], cloudPillar: [66, 71],
+};
+const minObstacleGap = (previous: ObstacleKind, next: ObstacleKind) =>
+  FEATHER_JUMP_DISTANCE + NEAREST_TAKEOFF[next][1] - NEAREST_TAKEOFF[previous][0] + SPACING_PAD;
+
 const buildLevel = (level: LevelNumber): Obstacle[] => {
   const config = LEVELS[level];
   const startX = 620;
   const endX = config.goalX - 430;
   const spacing = (endX - startX) / Math.max(1, config.obstacleCount - 1);
+  let previous: Obstacle | undefined;
   return Array.from({ length: config.obstacleCount }, (_, index) => {
     const kind = config.pool[(index * 2 + level + Math.floor(index / 3)) % config.pool.length];
     const base = OBSTACLE_SIZE[kind];
     const scale = 0.94 + ((index + level) % 4) * 0.035;
     const jitter = index === 0 || index === config.obstacleCount - 1 ? 0 : Math.sin((index + 1) * (level + 2.3)) * Math.min(54, spacing * 0.15);
-    return {
-      x: Math.round(startX + index * spacing + jitter),
+    const nominalX = Math.round(startX + index * spacing + jitter);
+    const obstacle: Obstacle = {
+      x: previous ? Math.round(Math.max(nominalX, previous.x + minObstacleGap(previous.kind, kind))) : nominalX,
       width: Math.round(base.width * scale * SIZE_BOOST * (OBSTACLE_SCALE[kind] ?? 1)) - (OBSTACLE_NARROW[kind] ?? 0),
       height: Math.round(base.height * scale * SIZE_BOOST * (OBSTACLE_SCALE[kind] ?? 1)),
       kind,
       passed: false,
     };
+    previous = obstacle;
+    return obstacle;
   });
 };
 
@@ -913,9 +956,9 @@ export default function Home() {
         }
         // Once Feather Fall is unlocked, downward physics advances at half
         // time so the complete descent is exactly half speed. Rising is unchanged.
-        const verticalTimeScale = game.slowFallUnlocked && game.ball.vy > 0 ? 0.5 : 1;
-        game.ball.vy += GRAVITY * dt * verticalTimeScale;
-        game.ball.y += game.ball.vy * dt * verticalTimeScale;
+        const vertical = stepVertical(game.ball.vy, dt, game.slowFallUnlocked);
+        game.ball.vy = vertical.vy;
+        game.ball.y += vertical.dy;
         const floor = groundY - radius;
         if (game.ball.y >= floor) {
           if (!game.ball.grounded && game.ball.vy > 180) {
