@@ -121,11 +121,11 @@ const OBSTACLE_SIZE: Record<ObstacleKind, { width: number; height: number }> = {
 // Mossy and the obstacles are drawn this much larger than their base sizes.
 const SIZE_BOOST = 1.3;
 
-// Movement and jump tuning. The jump (apex ~205px, ~0.84s in the air) is sized for the
+// Movement and jump tuning. The jump (apex ~226px, ~0.88s in the air) is sized for the
 // larger obstacles so every obstacle can be cleared with a single jump, before the
 // double jump unlocks and with Feather Fall's slow descent alike.
 const RUN_SPEED = 285 * 1.1;
-const JUMP_SPEED = 976;
+const JUMP_SPEED = 1024;
 const GRAVITY = 2324;
 const HIT_BOUNCE = 654;
 const FEATHER_BOOST = 750;
@@ -169,7 +169,7 @@ const hitboxHeight = (obstacle: Obstacle) =>
 const mossyRadius = (width: number) => clamp(width * 0.046, 30, 48) * SIZE_BOOST;
 
 // Desktop zoom: the world is drawn at most this large (0.85 = 15% smaller than 1:1).
-// On short stages it zooms out only as far as needed to keep a full jump (apex ~205px
+// On short stages it zooms out only as far as needed to keep a full jump (apex ~226px
 // plus Mossy's height) on screen, so Mossy and the obstacles stay big on wide, short
 // windows too.
 const ZOOM_MAX = 0.85;
